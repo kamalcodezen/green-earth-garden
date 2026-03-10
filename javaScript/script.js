@@ -1,7 +1,7 @@
 
 const categoriesContainer = document.getElementById("categoriesContainer");
 const treesContainer = document.getElementById("treesContainer");
-
+const allTreesbtn = document.getElementById("allTreesbtn")
 
 
 
@@ -10,20 +10,38 @@ const treesContainer = document.getElementById("treesContainer");
 
 // all categories api button
 const allCategoriesBtnApi = async () => {
+
     const res = await fetch("https://openapi.programming-hero.com/api/categories")
     const data = await res.json()
     displayCategories(data.categories)
 
 }
 
+
+
+const removeActiveBtn = (id) => {
+    const activeBtn = document.querySelectorAll(".active-btn");
+    activeBtn.forEach(btn => btn.classList.remove("btn-primary"));
+    allTreesbtn.classList.remove("btn-primary");
+
+
+    const selectBtn = document.getElementById(id)
+    selectBtn.classList.add("btn-primary");
+
+
+}
+
+
+
 // all button categorie api card 
 const btnCategoryApi = async (id) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/category/${id}`)
     const data = await res.json()
+
     btnCategoryCardDisplay(data.plants)
 
 }
-
+// button category trees dispaly
 const btnCategoryCardDisplay = (trees) => {
 
 
@@ -49,7 +67,7 @@ const btnCategoryCardDisplay = (trees) => {
                                           <h2 class="font-bold text-xl text-[#4ade80]">$${tree.price}</h2>
                                           
                                       </div> 
-                                      <button class="btn  rounded-full hover:opacity-90">Buy Now</button>
+                                      <button class="btn btn-primary rounded-full hover:opacity-90">Buy Now</button>
                                   </div>
                               </div>
                               `;
@@ -69,14 +87,19 @@ const displayCategories = (categories) => {
 
     categories.forEach(categorie => {
 
-        const button = document.createElement("button")
-        button.className = "btn btn-primary w-full"
+        const button = document.createElement("button");
+
+        button.className = "btn active-btn w-full";
+        button.id = `${categorie.id}`;
         button.innerText = categorie.category_name;
-        button.onclick = () => btnCategoryApi(categorie.id)
-        categoriesContainer.append(button)
 
+        button.onclick = () => {
+            btnCategoryApi(categorie.id);
+            removeActiveBtn(`${categorie.id}`);
+        };
+
+        categoriesContainer.append(button);
     });
-
 }
 
 // all Trees card Api sob card display koralam
@@ -112,7 +135,7 @@ const displayAllPlants = (trees) => {
                                           <h2 class="font-bold text-xl text-[#4ade80]">$${tree.price}</h2>
                                           
                                       </div> 
-                                      <button class="btn btn-primary rounded-full hover:opacity-90">Buy Now</button>
+                                      <button  class="btn btn-primary rounded-full hover:opacity-90">Buy Now</button>
                                   </div>
                               </div>
                               `;
