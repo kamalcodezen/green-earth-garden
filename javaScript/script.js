@@ -1,9 +1,10 @@
 
+
 const categoriesContainer = document.getElementById("categoriesContainer");
 const treesContainer = document.getElementById("treesContainer");
 const allTreesbtn = document.getElementById("allTreesbtn")
-
-
+const cartContainer = document.getElementById("cartContainer");
+let cart = [];
 
 
 
@@ -18,7 +19,7 @@ const allCategoriesBtnApi = async () => {
 }
 
 
-
+// all button toggle color selectBtn 
 const removeActiveBtn = (id) => {
     const activeBtn = document.querySelectorAll(".active-btn");
     activeBtn.forEach(btn => btn.classList.remove("btn-primary"));
@@ -67,7 +68,7 @@ const btnCategoryCardDisplay = (trees) => {
                                           <h2 class="font-bold text-xl text-[#4ade80]">$${tree.price}</h2>
                                           
                                       </div> 
-                                      <button class="btn btn-primary rounded-full hover:opacity-90">Buy Now</button>
+                                      <button onclick="addToCart(${tree.id},'${tree.name}',${tree.price})" class="btn btn-primary rounded-full hover:opacity-90">Buy Now</button>
                                   </div>
                               </div>
                               `;
@@ -75,12 +76,14 @@ const btnCategoryCardDisplay = (trees) => {
         treesContainer.append(div);
     });
 
+addToCart(id, name, price) 
+
 }
 
 
 
 
-// sob button gulo dispaly koralam
+// sob button gulo dispaly koralam 
 const displayCategories = (categories) => {
 
     categoriesContainer.innerHTML = "";
@@ -99,8 +102,10 @@ const displayCategories = (categories) => {
         };
 
         categoriesContainer.append(button);
+        
     });
 }
+
 
 // all Trees card Api sob card display koralam
 const allTreesBtnApi = async () => {
@@ -135,7 +140,7 @@ const displayAllPlants = (trees) => {
                                           <h2 class="font-bold text-xl text-[#4ade80]">$${tree.price}</h2>
                                           
                                       </div> 
-                                      <button  class="btn btn-primary rounded-full hover:opacity-90">Buy Now</button>
+                                      <button  class="btn btn-primary rounded-full hover:opacity-90" onclick="addToCart(${tree.id}, '${tree.name}', ${tree.price})" >Buy Now</button>
                                   </div>
                               </div>
                               `;
@@ -145,6 +150,56 @@ const displayAllPlants = (trees) => {
 
 
 }
+
+// add cart section
+function addToCart(id, name, price) {
+
+    const upadateCartAll = cart.find((item) => item.id == id)
+
+    if (upadateCartAll) {
+        upadateCartAll.quantity += 1
+    } else {
+        cart.push({
+            id,
+            name,
+            price,
+            quantity: 1
+
+        })
+
+    }
+
+    updateCart(cart);
+}
+function updateCart(carts) {
+
+    cartContainer.innerHTML = "";
+
+    for (let item of carts) {
+
+        const div = document.createElement("div")
+        div.innerHTML = `
+        
+                       <div class="card card-body bg-slate-100">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h2>${item.name}</h2>
+                                    <p> $${item.price} × ${item.quantity}</p>
+                                </div>
+                                <button onclick="removeCart(${item.id})" class="btn btn-ghost">X</button>
+                            </div>
+                            <p class="text-right font-semibold text-xl">$${item.price * item.quantity}</p>
+                        </div>
+        
+        `;
+        cartContainer.append(div);
+
+    }
+
+}
+
+
+
 
 
 
