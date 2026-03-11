@@ -4,6 +4,9 @@ const categoriesContainer = document.getElementById("categoriesContainer");
 const treesContainer = document.getElementById("treesContainer");
 const allTreesbtn = document.getElementById("allTreesbtn")
 const cartContainer = document.getElementById("cartContainer");
+const emptyCartMessage = document.getElementById("emptyCartMessage")
+
+
 let cart = [];
 
 
@@ -76,7 +79,7 @@ const btnCategoryCardDisplay = (trees) => {
         treesContainer.append(div);
     });
 
-addToCart(id, name, price) 
+
 
 }
 
@@ -102,7 +105,7 @@ const displayCategories = (categories) => {
         };
 
         categoriesContainer.append(button);
-        
+
     });
 }
 
@@ -156,6 +159,10 @@ function addToCart(id, name, price) {
 
     const upadateCartAll = cart.find((item) => item.id == id)
 
+    if (cart.length === 0) {
+        emptyCartMessage.classList.add("hidden")
+    }
+
     if (upadateCartAll) {
         upadateCartAll.quantity += 1
     } else {
@@ -197,6 +204,16 @@ function updateCart(carts) {
     }
 
 }
+
+// delete cart button 
+function removeCart(id) {
+
+    const newCart = cart.filter(item => item.id != id)
+    console.log(newCart)
+    cart = newCart;
+    updateCart(cart)
+}
+
 
 
 
