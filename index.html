@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -13,24 +14,30 @@
 
     <link rel="stylesheet" href="./styles/style.css">
 
+
 </head>
 
 <body>
 
-    <main class="">
 
-        <h2 class=" font-bold text-4xl text-center">Choose Your Trees</h2>
+    <main class="max-w-[1200px] mx-auto px-4 py-6">
 
-        <div class="grid grid-cols-12 gap-5 max-w-[1650px] mx-auto">
+        <h2 class="font-bold text-4xl text-center mb-6">Choose Your Trees</h2>
+
+        <div class="grid grid-cols-12 gap-5">
 
             <!-- Categories -->
-            <div class="bg-white card pl-4 col-span-3">
+            <div class="bg-white card pl-4 col-span-12 lg:col-span-3">
 
                 <h2 class="font-bold text-2xl text-center">Categories</h2>
-                <div class="space-y-3 sticky ">
+
+                <div class="space-y-3 sticky top-4">
+
+                    <!-- All Trees Button -->
                     <button onclick="allTreesBtnApi('allTreesbtn');removeActiveBtn('allTreesbtn')"
-                        class="btn btn-primary active-btn w-full" id="allTreesbtn">All
-                        Trees</button>
+                        class="btn btn-primary active-btn w-full" id="allTreesbtn">
+                        All Trees
+                    </button>
 
                     <!-- Categories container -->
                     <div id="categoriesContainer" class="space-y-3">
@@ -41,89 +48,117 @@
             </div>
 
             <!-- Trees -->
-            <div class="bg-white card  col-span-6">
+            <div class="bg-white card col-span-12 lg:col-span-6 p-3">
+
                 <!-- Trees will rendered -->
                 <div id="treesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+
                     <!-- Dynamically added here -->
-                    <!-- <div class="card bg-white shadow-sm">
-                        <figure>
-                            <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                                alt="Shoes" />
-                        </figure>
-                        <div class="card-body">
-                            <h2 class="card-title">Card Title</h2>
-                            <p class="line-clamp-2">A card component has a figure, a body part, and inside body there
-                                are title and actions lorem1500
-                                parts</p>
-                            <div class="badge badge-success badge-outline">Success</div>
 
-                            <div class="flex justify-between items-center">
-                                <h2 class="font-bold text-xl text-[#4ade80]">$5000</h2>
-                                <button class="btn btn-primary ">Buy Now</button>
-                            </div>
+                    <!--
+                <div class="card bg-white shadow-sm">
+                    <figure>
+                        <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                            alt="Shoes" />
+                    </figure>
+
+                    <div class="card-body">
+
+                        <h2 class="card-title">Card Title</h2>
+
+                        <p class="line-clamp-2">
+                            A card component has a figure, a body part,
+                            and inside body there are title and actions
+                        </p>
+
+                        <div class="badge badge-success badge-outline">
+                            Success
                         </div>
-                    </div> -->
+
+                        <div class="flex justify-between items-center">
+                            <h2 class="font-bold text-xl text-[#4ade80]">$5000</h2>
+                            <button class="btn btn-primary">Buy Now</button>
+                        </div>
+
+                    </div>
+                </div>
+                -->
+
                 </div>
 
+                <!-- Trees loading spinner -->
+                <div id="treesLoadingSpinner" class="h-[200px] flex justify-center items-center hidden">
 
-                <!-- loading spinner -->
-                <div id="loadingSpinner" class="h-[60vh] flex justify-center items-center">
-                    <span id="btn-spinner" class="loading loading-spinner loading"></span>
+                    <span class="loading loading-spinner loading-lg"></span>
+
                 </div>
-
 
             </div>
 
-
-
-
             <!-- Cart -->
-            <div class="bg-white card   col-span-3">
+            <div class="bg-white card p-4 col-span-12 lg:col-span-3">
+
                 <h2 class="font-bold text-3xl mb-2">Cart</h2>
 
+                <!-- Cart loading spinner -->
+                <div id="cartLoadingSpinner" class="h-[200px] flex justify-center items-center hidden">
+
+                    <span class="loading loading-spinner loading-lg"></span>
+
+                </div>
+
                 <div class="space-y-4">
+
                     <div id="cartContainer" class="space-y-4">
-                        <!-- <div class="card card-body bg-slate-100">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <h2>Name</h2>
-                                    <p> $2000 × 10</p>
-                                </div>
-                                <button class="btn btn-ghost">X</button>
+
+                        <!--
+                    <div class="card card-body bg-slate-100">
+
+                        <div class="flex justify-between items-center">
+
+                            <div>
+                                <h2>Name</h2>
+                                <p>$2000 × 10</p>
                             </div>
-                            <p class="text-right font-semibold text-xl">$500</p>
-                        </div> -->
+
+                            <button class="btn btn-ghost">X</button>
+
+                        </div>
+
+                        <p class="text-right font-semibold text-xl">$500</p>
+
+                    </div>
+                    -->
+
                     </div>
 
+                    <!-- Empty cart message -->
                     <div id="emptyCartMessage" class="text-center py-4">
+
                         <p>Your cart is empty</p>
                         <p>Add trees to get started</p>
-                    </div>
 
+                    </div>
 
                     <!-- Total amount -->
                     <div class="flex justify-between items-center bg-green-50 rounded-lg p-4 my-3 font-bold">
+
                         <span>Total:</span>
                         <span id="totalPrice">$0</span>
+
                     </div>
 
                 </div>
 
-
             </div>
+
         </div>
-
-
-
-
-
-
 
     </main>
 
-
-
     <script src="./javaScript/script.js"></script>
+
+
 </body>
 
 </html>
